@@ -8,6 +8,12 @@ const BUNDLE_JS_FILE_URL = "/bundle.js";
 
 const js = await Deno.readFile(`.${BUNDLE_JS_FILE_URL}`);
 
+const DUMMY_DB = new Map([
+  ["potato", { name: "potato", like: 10, dislike: 0 }],
+  ["carrot", { name: "carrot", like: 6, dislike: 4 }],
+  ["tomato", { name: "tomato", like: 3, dislike: 7 }],
+]);
+
 listenAndServe({ port: 8080 }, (req) => {
   switch (true) {
     case req.url === "/": {
@@ -37,6 +43,16 @@ listenAndServe({ port: 8080 }, (req) => {
           "Content-Type": "text/javascript",
         }),
         body: js,
+      });
+      break;
+    }
+    case /^\/api\//.test(req.url): {
+      req.respond({
+        status: 200,
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+        body: JSON.stringify(DUMMY_DB.get(req.url.slice(5))),
       });
       break;
     }
