@@ -3,7 +3,7 @@
 ## build
 
 ```bash
-deno bundle client.jsx bundle.js
+deno bundle src/client.jsx bundle.js
 ```
 
 ## run
