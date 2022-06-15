@@ -6,7 +6,7 @@ import { App } from "./App.jsx";
 
 const BUNDLE_JS_FILE_URL = "/bundle.js";
 
-const js = await Deno.readFile(`.${BUNDLE_JS_FILE_URL}`);
+const js = await Deno.readFile(`../${BUNDLE_JS_FILE_URL}`);
 
 const DUMMY_DB = new Map([
   ["potato", { name: "potato", like: 10, dislike: 0 }],
@@ -27,7 +27,7 @@ listenAndServe({ port: 8080 }, (req) => {
             <head></head>
             <body>
               <div id="app">
-                <App />
+                <App initialFood={DUMMY_DB.get("potato")} />
               </div>
               <script type="module" src={BUNDLE_JS_FILE_URL}></script>
             </body>
